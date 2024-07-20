@@ -89,6 +89,20 @@ web-1   1/1     Running   0          3s
 web-2   1/1     Running   0          4m39s
 controlplane $ 
 
+controlplane $ vi headless.yml
+controlplane $ kubectl create -f headless.yml
+service/nginx created
+controlplane $ kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+web-0   1/1     Running   0          8m13s
+web-1   1/1     Running   0          7m26s
+web-2   1/1     Running   0          12m
+
+
+
+
+
+
 
 
 
@@ -129,3 +143,25 @@ spec:
       resources:
         requests:
           storage: 1Gi
+
+
+
+
+
+
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    app: nginx
+
